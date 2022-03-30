@@ -1,49 +1,48 @@
-
-import type { ReactNode } from 'react'
-import { useCallback, useEffect, useRef } from 'react'
+import type {ReactNode} from 'react'
+import {useCallback, useEffect, useRef} from 'react'
 import styled from '@emotion/styled'
 
 type DropdownItemProps = {
-    option: string | ReactNode
-    focus: any
-    index: number
-    setFocus: (index: number) => void
-    onClick: () => void
+  option: string | ReactNode
+  focus: any
+  index: number
+  setFocus: (index: number) => void
+  onClick: () => void
 }
 
 export const DropdownItem = ({
-                                 option,
-                                 index,
-                                 setFocus,
-                                 focus,
-                                 onClick,
-                             }: DropdownItemProps) => {
-    const ref = useRef(null)
+  option,
+  index,
+  setFocus,
+  focus,
+  onClick,
+}: DropdownItemProps) => {
+  const ref = useRef(null)
 
-    useEffect(() => {
+  useEffect(() => {
 
-        if (focus) {
-            // @ts-ignore
-            ref.current.focus()
-        }
-    }, [focus])
+    if (focus) {
+      // @ts-ignore
+      ref.current.focus()
+    }
+  }, [focus])
 
-    const handleSelect = useCallback(() => {
-        setFocus(index)
-    }, [index, setFocus])
+  const handleSelect = useCallback(() => {
+    setFocus(index)
+  }, [index, setFocus])
 
-    return (
-        <ListItem
-            tabIndex={focus ? 0 : -1}
-            role="button"
-            ref={ref}
-            onClick={onClick}
-            onKeyPress={handleSelect}
-            onChange={handleSelect}
-        >
-            {option}
-        </ListItem>
-    )
+  return (
+    <ListItem
+      tabIndex={focus ? 0 : -1}
+      role="button"
+      ref={ref}
+      onClick={onClick}
+      onKeyPress={handleSelect}
+      onChange={handleSelect}
+    >
+      {option}
+    </ListItem>
+  )
 }
 
 const ListItem = styled.li`
