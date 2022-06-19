@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 
 type DropdownItemProps = {
   option: string | ReactNode
-  focus: any
+  focus: boolean
   index: number
   setFocus: (index: number) => void
   onClick: () => void
@@ -17,13 +17,12 @@ export const DropdownItem = ({
   focus,
   onClick,
 }: DropdownItemProps) => {
-  const ref = useRef(null)
+  const ref = useRef<HTMLLIElement | null>(null)
 
   useEffect(() => {
 
     if (focus) {
-      // @ts-ignore
-      ref.current.focus()
+      ref?.current?.focus()
     }
   }, [focus])
 
@@ -34,7 +33,7 @@ export const DropdownItem = ({
   return (
     <ListItem
       tabIndex={focus ? 0 : -1}
-      role="button"
+      role="listItem"
       ref={ref}
       onClick={onClick}
       onKeyPress={handleSelect}

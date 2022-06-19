@@ -30,7 +30,7 @@ export const Dropdown = ({
   const dropdownRef = useRef<HTMLUListElement>(null)
   const buttonRef = useRef<HTMLDivElement>(null)
   const [openOptions, setOpenOptions] = useState<boolean>(false)
-  const [currentFocus, setCurrentFocus] = useState(0)
+  const [currentFocus, setCurrentFocus] = useState<number>(0)
   const currentOption = options.find((option) => option.value === value)
 
   const columnsCount = useMemo(() => {
@@ -53,7 +53,7 @@ export const Dropdown = ({
   })
 
   const handleKeyDown = useCallback(
-    (e) => {
+    (e:KeyboardEvent) => {
       switch (e.key) {
         case 'Enter':
         case ' ': {
@@ -140,6 +140,7 @@ export const Dropdown = ({
         onClick={() => setOpenOptions(!openOptions)}
         aria-pressed={openOptions}
         aria-expanded={openOptions}
+        role="dropdownButton"
         hasValue={options.some((option) => option.value === value)}
       >
         {currentOption?.label ?? placeholder}
@@ -149,6 +150,8 @@ export const Dropdown = ({
           columnsCount={columnsCount}
           ref={dropdownRef}
           position={positions}
+          role="list"
+
         >
           {options.map((option, i) => (
             <DropdownItem
